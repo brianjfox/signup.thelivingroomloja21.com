@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Mail, Hash, User, Phone, MapPin, ArrowLeft, CheckCircle } from 'lucide-react';
+import { Mail, Hash, User, Phone, MapPin, CheckCircle } from 'lucide-react';
 import { step1Schema, step2Schema, Step1FormData, Step2FormData } from './utils/validation';
 import { verifyCredentials, registerUser } from './services/api';
 import './App.css';
@@ -72,7 +72,7 @@ function App() {
         
         // Redirect after 8 seconds
         setTimeout(() => {
-          window.location.href = 'https://www.thelivingroomloja21.com';
+          window.location.href = 'https://signup.thelivingroomloja21.com';
         }, 8000);
       } else {
         setError(response.message || 'Registration failed');
@@ -85,7 +85,7 @@ function App() {
   };
 
   const handleCancel = () => {
-    window.location.href = 'https://www.thelivingroomloja21.com';
+    window.location.href = 'https://signup.thelivingroomloja21.com';
   };
 
   if (showSuccess) {
@@ -97,10 +97,10 @@ function App() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Registration Successful!</h2>
           <p className="text-gray-600 mb-6 leading-relaxed">
-            Your account has been created successfully. You will be redirected to the home page in a few seconds.
+            Your account has been created successfully! You should receive an email in a couple of days.
           </p>
           <div className="text-sm text-gray-500 bg-gray-50 px-4 py-3 rounded-lg">
-            Redirecting to www.thelivingroomloja21.com...
+            Redirecting to signup.thelivingroomloja21.com...
           </div>
         </div>
       </div>
@@ -340,7 +340,7 @@ function App() {
                   type="text"
                   {...step2Form.register('address')}
                   className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 shadow-sm"
-                  placeholder="Full address"
+                  placeholder="Full address (min. 10 chars)"
                 />
               </div>
               {step2Form.formState.errors.address && (
@@ -354,35 +354,26 @@ function App() {
             <div className="flex gap-4 pt-6">
               <button
                 type="button"
-                onClick={() => setStep(1)}
-                className="flex-1 flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-sm"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back
-              </button>
-              <button
-                type="button"
                 onClick={handleCancel}
-                className="flex-1 bg-gray-100 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-sm"
+                className="flex-1 bg-red-600 text-white py-4 rounded-xl font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-sm"
               >
                 Cancel
               </button>
+              <button
+                type="submit"
+                disabled={isLoading || !step2Form.formState.isValid}
+                className="flex-1 bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Registering...
+                  </div>
+                ) : (
+                  'Register'
+                )}
+              </button>
             </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
-            >
-              {isLoading ? (
-                <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Registering...
-                </div>
-              ) : (
-                'Register'
-              )}
-            </button>
           </form>
         )}
 

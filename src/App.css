@@ -120,6 +120,52 @@ code {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
   }
+  
+  /* Stack buttons vertically on very small screens */
+  .flex.gap-4 {
+    flex-direction: column;
+  }
+  
+  .flex.gap-4 > button {
+    width: 100%;
+  }
+}
+
+/* Ensure buttons take full width of form container */
+.flex.gap-4 {
+  width: 100%;
+}
+
+.flex.gap-4 > button {
+  min-width: 0;
+  flex: 1;
+}
+
+/* Red button styles for Cancel button */
+.bg-red-600 {
+  background-color: #dc2626;
+}
+
+.hover\:bg-red-700:hover {
+  background-color: #b91c1c;
+}
+
+.focus\:ring-red-500:focus {
+  --tw-ring-color: #ef4444;
+}
+
+/* Disabled button styles */
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+
+/* Disabled button hover prevention */
+.disabled\:opacity-50:disabled:hover {
+  background-color: #2563eb; /* Keep original blue color when disabled */
 }
 
 .bg-black\/60 {
@@ -151,7 +197,7 @@ code {
 }
 
 .max-w-md {
-  max-width: 85%;
+  max-width: 800px;
   width: 100%;
   box-sizing: border-box;
 }

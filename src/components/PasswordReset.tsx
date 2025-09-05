@@ -87,10 +87,11 @@ const PasswordReset: React.FC<PasswordResetProps> = ({ token }) => {
       <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-white/20">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Times New Roman, Times, serif' }}>
+          <h1 className="text-4xl font-bold text-gray-900 mb-8" style={{ fontFamily: 'Times New Roman, Times, serif' }}>
             The Living Room
           </h1>
-          <p className="text-gray-600 text-xl mb-8">Reset Your Password</p>
+          <p className="text-gray-600 text-xl ">Reset Your Password</p>
+	  <span className="text-gray-500 text-sm">(must be at least 8 characters)</span>
         </div>
 
         {/* Error Message */}

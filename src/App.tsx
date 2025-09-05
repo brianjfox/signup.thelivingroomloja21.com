@@ -1,12 +1,40 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Mail, Hash, User, Phone, MapPin, CheckCircle } from 'lucide-react';
 import { step1Schema, step2Schema, Step1FormData, Step2FormData } from './utils/validation';
 import { verifyCredentials, registerUser } from './services/api';
+import PasswordReset from './components/PasswordReset';
 import './App.css';
 
-function App() {
+// Password Reset Route Component
+const PasswordResetRoute: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+
+  if (!token) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-6 bg-black/60 backdrop-blur-sm">
+        <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md text-center border border-white/20">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Invalid Reset Link</h2>
+          <p className="text-gray-600 mb-6">The password reset link is invalid or missing a token.</p>
+          <button
+            onClick={() => window.location.href = 'https://signup.thelivingroomloja21.com'}
+            className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            Return to Signup
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return <PasswordReset token={token} />;
+};
+
+// Main Signup Component
+function SignupApp() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -384,6 +412,18 @@ function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main App Component with Routing
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/password_reset" element={<PasswordResetRoute />} />
+        <Route path="/*" element={<SignupApp />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, CheckCircle, XCircle } from 'lucide-react';
 import { z } from 'zod';
 import axios from 'axios';
-import './PasswordReset.css';
 
 const passwordResetSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
